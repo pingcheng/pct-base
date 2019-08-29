@@ -6,6 +6,7 @@ RUN set -ex \
   	&& apk update \
     && apk add --no-cache git mysql-client curl openssh-client icu libpng freetype libjpeg-turbo postgresql-dev libffi-dev libsodium libzip-dev \
     && apk add --no-cache --virtual build-dependencies icu-dev libxml2-dev freetype-dev libpng-dev libjpeg-turbo-dev g++ make autoconf libsodium-dev \
+    && apk add --no-cache nginx \
     && docker-php-source extract \
     && pecl install swoole redis sodium \
     && docker-php-ext-enable redis swoole sodium \
@@ -17,3 +18,5 @@ RUN set -ex \
     && cd  / && rm -fr /src \
     && apk del build-dependencies \
     && rm -rf /tmp/* 
+
+RUN mkdir -p /run/nginx
