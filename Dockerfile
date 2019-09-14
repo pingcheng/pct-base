@@ -19,7 +19,9 @@ RUN set -ex \
     && apk del build-dependencies \
     && rm -rf /tmp/* 
 
-RUN sed -i 's,^user =*$,user = root,' /usr/local/etc/php-fpm.d/www.conf
-RUN sed -i 's,^group =*$,group = root,' /usr/local/etc/php-fpm.d/www.conf
+RUN sed -i 's,^user =.*$,user = root,' /usr/local/etc/php-fpm.d/www.conf
+RUN sed -i 's,^group =.*$,group = root,' /usr/local/etc/php-fpm.d/www.conf
 
 RUN mkdir -p /run/nginx
+
+CMD php-fpm -R
