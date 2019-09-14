@@ -8,8 +8,8 @@ RUN set -ex \
     && apk add --no-cache --virtual build-dependencies icu-dev libxml2-dev freetype-dev libpng-dev libjpeg-turbo-dev g++ make autoconf libsodium-dev \
     && apk add --no-cache nginx \
     && docker-php-source extract \
-    && pecl install swoole redis sodium \
-    && docker-php-ext-enable redis swoole sodium \
+    && pecl install redis sodium \
+    && docker-php-ext-enable redis sodium \
     && docker-php-source delete \
     && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
@@ -18,5 +18,8 @@ RUN set -ex \
     && cd  / && rm -fr /src \
     && apk del build-dependencies \
     && rm -rf /tmp/* 
+
+RUN sed -i 's,^user =*$,user = root,' /usr/local/etc/php-fpm.d/www.conf
+RUN sed -i 's,^group =*$,group = root,' /usr/local/etc/php-fpm.d/www.conf
 
 RUN mkdir -p /run/nginx
