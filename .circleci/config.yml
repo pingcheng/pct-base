@@ -1,0 +1,20 @@
+version: 2.1
+
+jobs:
+  build:
+    machine: true
+    steps:
+      
+      - checkout
+
+      - run:
+        name: Build from Dockerfile
+        command: docker build -t pingcheng/pct-base .
+
+      - run:
+        name: Login to Docker Hub
+        command: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+
+      - run:
+        name: Push to Docker Hub
+        command: docker push pingcheng/pct-base
