@@ -22,7 +22,7 @@ jobs:
 
       - run:
           name: Trigger PingChengTech build
-          command: curl -X POST https://circleci.com/api/v1.1/project/github/pingcheng/pingchengtech/build?circle-token=${CIRCLE_API_USER_TOKEN}&branch=master
+          command: curl -X POST https://circleci.com/api/v1.1/project/github/pingcheng/pingchengtech/build?circle-token=$CIRCLE_API_USER_TOKEN&branch=master
 
 
 workflows:
