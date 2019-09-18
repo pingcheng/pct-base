@@ -24,7 +24,7 @@ jobs:
           name: Trigger PingChengTech build
           command: |
             curl -u ${CIRCLE_API_USER_TOKEN}: \
-            -d build_parameters[CIRCLE_JOB]=deploy \
+            -d build_parameters[CIRCLE_JOB]=test \
             https://circleci.com/api/v1.1/project/github/pingcheng/pingchengtech/tree/master
 
 
