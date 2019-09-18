@@ -20,6 +20,13 @@ jobs:
           name: Push to Docker Hub
           command: docker push pingcheng/pct-base
 
+      - run:
+          name: Trigger PingChengTech build
+          command: |
+            curl -u ${CIRCLE_API_USER_TOKEN}: \
+            -d build_parameters[CIRCLE_JOB]=deploy
+            https://circleci.com/api/v1.1/project/github/pingcheng/pingchengtech/tree/master
+
 
 workflows:
   version: 2
