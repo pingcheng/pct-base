@@ -6,7 +6,7 @@ RUN set -ex \
   	&& apk update \
     && apk add --no-cache git mysql-client curl openssh-client icu libpng freetype libjpeg-turbo postgresql-dev libffi-dev libsodium libzip-dev \
     && apk add --no-cache --virtual build-dependencies icu-dev libxml2-dev freetype-dev libpng-dev libjpeg-turbo-dev g++ make autoconf libsodium-dev \
-    && apk add --no-cache nginx \
+    && apk add --no-cache nginx supervisor\
     && docker-php-source extract \
     && pecl install redis sodium \
     && docker-php-ext-enable redis sodium \
@@ -23,5 +23,7 @@ RUN sed -i 's,^user =.*$,user = root,' /usr/local/etc/php-fpm.d/www.conf
 RUN sed -i 's,^group =.*$,group = root,' /usr/local/etc/php-fpm.d/www.conf
 
 RUN mkdir -p /run/nginx
+
+ADD supervisor/supervisord.conf /etc/
 
 CMD php-fpm -R
